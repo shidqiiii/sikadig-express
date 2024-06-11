@@ -9,6 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 import indexRouter from "./routes/index.js";
+import roleRouter from "./routes/role.route.js";
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET_KEY));
 app.use(static_(join(__dirname, "public")));
 
 app.use("/", indexRouter);
+app.use("/role", roleRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
