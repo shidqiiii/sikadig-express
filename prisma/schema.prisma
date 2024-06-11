@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id           String              @id @default(uuid())
+  name              String
+  email             String              @unique
+  password          String
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  Role              Role?               @relation(fields: [role_id], references: [role_id])
+  role_id           String?
+  transaction       Transaction[]
+  TransactionDetail TransactionDetail[]
+
+  @@map("users")
+}
+
+model Role {
+  role_id   String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User[]
+
+  @@map("roles")
+}
+
+model MenuType {
+  menu_type_id String   @id @default(uuid())
+  name         String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  menu         Menu[]
+
+  @@map("menu_type")
+}
+
+model Menu {
+  menu_id            String              @id @default(uuid())
+  name               String
+  description        String
+  price              Int
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  MenuType           MenuType?           @relation(fields: [menu_type_id], references: [menu_type_id])
+  menu_type_id       String?
+  transaction_detail TransactionDetail[]
+
+  @@map("menus")
+}
+
+model Transaction {
+  transaction_id     String              @id @default(uuid())
+  total_price        Int
+  status             Int
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  User               User?               @relation(fields: [user_id], references: [user_id])
+  user_id            String?
+  transaction_detail TransactionDetail[]
+
+  @@map("transactions")
+}
+
+model TransactionDetail {
+  transaction_detail_id String       @id @default(uuid())
+  quantity              Int
+  price                 Int
+  createdAt             DateTime     @default(now())
+  updatedAt             DateTime     @updatedAt
+  User                  User?        @relation(fields: [userUser_id], references: [user_id])
+  userUser_id           String?
+  Transaction           Transaction? @relation(fields: [transaction_detail], references: [transaction_id])
+  transaction_detail    String?
+  Menu                  Menu?        @relation(fields: [menu_id], references: [menu_id])
+  menu_id               String?
+
+  @@map("transaction_detail")
+}
