@@ -10,7 +10,8 @@ const __dirname = path.dirname(__filename);
 
 import indexRouter from "./routes/index.js";
 import roleRouter from "./routes/role.route.js";
-import menuType from "./routes/menutype.route.js";
+import menuTypeRouter from "./routes/menutype.route.js";
+import menuRouter from "./routes/menu.route.js";
 
 const app = express();
 
@@ -26,7 +27,8 @@ app.use(static_(join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/role", roleRouter);
-app.use("/menu-type", menuType);
+app.use("/menu-type", menuTypeRouter);
+app.use("/menu", menuRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
