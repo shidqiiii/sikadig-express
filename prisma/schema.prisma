@@ -48,16 +48,28 @@ model MenuType {
   @@map("menu_type")
 }
 
+model MenuStatus {
+  menu_status_id Int      @id @default(autoincrement())
+  name           String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  menu           Menu[]
+
+  @@map("menu_status")
+}
+
 model Menu {
-  menu_id            String              @id @default(uuid())
-  name               String
-  description        String
-  price              Int
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
-  MenuType           MenuType?           @relation(fields: [menu_type_id], references: [menu_type_id])
-  menu_type_id       String?
-  transaction_detail TransactionDetail[]
+  menu_id                  String              @id @default(uuid())
+  name                     String
+  description              String
+  price                    Int
+  createdAt                DateTime            @default(now())
+  updatedAt                DateTime            @updatedAt
+  MenuType                 MenuType?           @relation(fields: [menu_type_id], references: [menu_type_id])
+  menu_type_id             String?
+  transaction_detail       TransactionDetail[]
+  MenuStatus               MenuStatus?         @relation(fields: [menuStatusMenu_status_id], references: [menu_status_id])
+  menuStatusMenu_status_id Int?
 
   @@map("menus")
 }

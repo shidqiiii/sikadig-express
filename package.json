@@ -7,6 +7,9 @@
         "start": "node ./src/bin/www",
         "start:dev": "nodemon ./src/bin/www"
     },
+    "prisma": {
+        "seed": "node prisma/seeds/index.js"
+    },
     "dependencies": {
         "@prisma/client": "^5.15.0",
         "bcrypt": "^5.1.1",
