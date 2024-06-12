@@ -14,16 +14,16 @@ datasource db {
 }
 
 model User {
-  user_id           String              @id @default(uuid())
-  name              String
-  email             String              @unique
-  password          String
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  Role              Role?               @relation(fields: [role_id], references: [role_id])
-  role_id           String?
-  transaction       Transaction[]
-  TransactionDetail TransactionDetail[]
+  user_id            String              @id @default(uuid())
+  name               String
+  email              String              @unique
+  password           String
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  role               Role?               @relation(fields: [role_id], references: [role_id])
+  role_id            String?
+  transaction        Transaction[]
+  transaction_detail TransactionDetail[]
 
   @@map("users")
 }
@@ -59,17 +59,17 @@ model MenuStatus {
 }
 
 model Menu {
-  menu_id                  String              @id @default(uuid())
-  name                     String
-  description              String
-  price                    Int
-  createdAt                DateTime            @default(now())
-  updatedAt                DateTime            @updatedAt
-  MenuType                 MenuType?           @relation(fields: [menu_type_id], references: [menu_type_id])
-  menu_type_id             String?
-  transaction_detail       TransactionDetail[]
-  MenuStatus               MenuStatus?         @relation(fields: [menuStatusMenu_status_id], references: [menu_status_id])
-  menuStatusMenu_status_id Int?
+  menu_id            String              @id @default(uuid())
+  name               String
+  description        String
+  price              Int
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  menu_type          MenuType?           @relation(fields: [menu_type_id], references: [menu_type_id])
+  menu_type_id       String?
+  transaction_detail TransactionDetail[]
+  menu_status        MenuStatus?         @relation(fields: [menu_status_id], references: [menu_status_id])
+  menu_status_id     Int?
 
   @@map("menus")
 }
@@ -80,7 +80,7 @@ model Transaction {
   status             Int
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
-  User               User?               @relation(fields: [user_id], references: [user_id])
+  user               User?               @relation(fields: [user_id], references: [user_id])
   user_id            String?
   transaction_detail TransactionDetail[]
 
@@ -91,13 +91,14 @@ model TransactionDetail {
   transaction_detail_id String       @id @default(uuid())
   quantity              Int
   price                 Int
+  date                  DateTime
   createdAt             DateTime     @default(now())
   updatedAt             DateTime     @updatedAt
-  User                  User?        @relation(fields: [userUser_id], references: [user_id])
-  userUser_id           String?
-  Transaction           Transaction? @relation(fields: [transaction_detail], references: [transaction_id])
+  user                  User?        @relation(fields: [user_id], references: [user_id])
+  user_id               String?
+  transaction           Transaction? @relation(fields: [transaction_detail], references: [transaction_id])
   transaction_detail    String?
-  Menu                  Menu?        @relation(fields: [menu_id], references: [menu_id])
+  menu                  Menu?        @relation(fields: [menu_id], references: [menu_id])
   menu_id               String?
 
   @@map("transaction_detail")

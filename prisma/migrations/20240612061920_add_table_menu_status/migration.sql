@@ -1,5 +1,5 @@
 -- AlterTable
-ALTER TABLE "menus" ADD COLUMN     "menuStatusMenu_status_id" INTEGER;
+ALTER TABLE "menus" ADD COLUMN     "menu_status_id" INTEGER;
 
 -- CreateTable
 CREATE TABLE "menu_status" (
@@ -12,4 +12,4 @@ CREATE TABLE "menu_status" (
 );
 
 -- AddForeignKey
-ALTER TABLE "menus" ADD CONSTRAINT "menus_menuStatusMenu_status_id_fkey" FOREIGN KEY ("menuStatusMenu_status_id") REFERENCES "menu_status"("menu_status_id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "menus" ADD CONSTRAINT "menus_menu_status_id_fkey" FOREIGN KEY ("menu_status_id") REFERENCES "menu_status"("menu_status_id") ON DELETE SET NULL ON UPDATE CASCADE;
