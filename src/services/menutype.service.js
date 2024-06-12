@@ -5,8 +5,9 @@ import createError from "http-errors";
 
 const list = async (query) => {
     const { limit = 10, offset = 0 } = query;
+    const count = await prismaClient.menuType.count();
 
-    return await prismaClient.menuType.findMany({
+    const menuType = await prismaClient.menuType.findMany({
         skip: parseInt(offset),
         take: parseInt((offset - 1) * limit),
         select: {
@@ -14,6 +15,8 @@ const list = async (query) => {
             name: true,
         },
     });
+
+    return { total_data: count, menu_type: menuType };
 };
 
 const read = async (params) => {

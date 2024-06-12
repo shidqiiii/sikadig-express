@@ -5,8 +5,9 @@ import { validate } from "../validations/validate.js";
 
 const list = async (query) => {
     const { limit = 10, offset = 0 } = query;
+    const count = await prismaClient.role.count();
 
-    return await prismaClient.role.findMany({
+    const role = await prismaClient.role.findMany({
         skip: parseInt(offset),
         take: parseInt((offset - 1) * limit),
         select: {
@@ -14,6 +15,8 @@ const list = async (query) => {
             name: true,
         },
     });
+
+    return { total_data: count, role };
 };
 
 const read = async (params) => {
