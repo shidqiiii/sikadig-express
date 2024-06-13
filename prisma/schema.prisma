@@ -24,6 +24,8 @@ model User {
   role_id            String?
   transaction        Transaction[]
   transaction_detail TransactionDetail[]
+  user_status        UserStatus?         @relation(fields: [user_status_id], references: [user_status_id])
+  user_status_id     Int?
 
   @@map("users")
 }
@@ -36,6 +38,16 @@ model Role {
   user      User[]
 
   @@map("roles")
+}
+
+model UserStatus {
+  user_status_id Int      @id @default(autoincrement())
+  name           String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  user           User[]
+
+  @@map("user_status")
 }
 
 model MenuType {
