@@ -5,7 +5,7 @@ export const registerUserSchema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().required(),
     confirm_password: Joi.any().valid(Joi.ref("password")).required(),
-    role_id: Joi.string().required(),
+    role_id: Joi.string().uuid().required(),
     user_status_id: Joi.number().required(),
 });
 
@@ -17,7 +17,7 @@ export const updateUserSchema = Joi.object({
         is: Joi.exist(),
         then: Joi.string().valid(Joi.ref("password")).required(),
     }),
-    role_id: Joi.string().required(),
+    role_id: Joi.string().uuid().required(),
     user_status_id: Joi.number().required(),
 });
 
