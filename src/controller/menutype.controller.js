@@ -36,11 +36,11 @@ const create = async (req, res, next) => {
     try {
         const result = await menutypeService.create(req.body);
 
-        res.status(200).json({
+        res.status(201).json({
             data: null,
             info: {
-                status: 200,
-                message: "OK",
+                status: 201,
+                message: "Created",
             },
         });
     } catch (error) {
