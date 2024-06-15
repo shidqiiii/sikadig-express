@@ -14,18 +14,17 @@ datasource db {
 }
 
 model User {
-  user_id            String              @id @default(uuid())
-  name               String
-  email              String              @unique
-  password           String
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
-  role               Role?               @relation(fields: [role_id], references: [role_id])
-  role_id            String?
-  transaction        Transaction[]
-  transaction_detail TransactionDetail[]
-  user_status        UserStatus?         @relation(fields: [user_status_id], references: [user_status_id])
-  user_status_id     Int?
+  user_id        String        @id @default(uuid())
+  name           String
+  email          String        @unique
+  password       String
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  role           Role?         @relation(fields: [role_id], references: [role_id])
+  role_id        String?
+  transaction    Transaction[]
+  user_status    UserStatus?   @relation(fields: [user_status_id], references: [user_status_id])
+  user_status_id Int?
 
   @@map("users")
 }
@@ -87,14 +86,16 @@ model Menu {
 }
 
 model Transaction {
-  transaction_id     String              @id @default(uuid())
-  total_price        Int
-  status             Int
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
-  user               User?               @relation(fields: [user_id], references: [user_id])
-  user_id            String?
-  transaction_detail TransactionDetail[]
+  transaction_id        String              @id @default(uuid())
+  total_price           Int
+  date                  DateTime
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+  user                  User?               @relation(fields: [user_id], references: [user_id])
+  user_id               String?
+  transaction_detail    TransactionDetail[]
+  transaction_status    TransactionStatus?  @relation(fields: [transaction_status_id], references: [transaction_status_id])
+  transaction_status_id Int?
 
   @@map("transactions")
 }
@@ -103,15 +104,22 @@ model TransactionDetail {
   transaction_detail_id String       @id @default(uuid())
   quantity              Int
   price                 Int
-  date                  DateTime
   createdAt             DateTime     @default(now())
   updatedAt             DateTime     @updatedAt
-  user                  User?        @relation(fields: [user_id], references: [user_id])
-  user_id               String?
   transaction           Transaction? @relation(fields: [transaction_detail], references: [transaction_id])
   transaction_detail    String?
   menu                  Menu?        @relation(fields: [menu_id], references: [menu_id])
   menu_id               String?
 
   @@map("transaction_detail")
+}
+
+model TransactionStatus {
+  transaction_status_id Int           @id
+  name                  String
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  transaction           Transaction[]
+
+  @@map("transaction_status")
 }

@@ -65,6 +65,13 @@ const main = async () => {
                 };
             }),
         });
+
+        await prismaClient.transactionStatus.createMany({
+            data: [
+                { transaction_status_id: 1, name: "Pending" },
+                { transaction_status_id: 0, name: "Paid" },
+            ],
+        });
     } catch (e) {
         console.error(e);
         process.exit(1);

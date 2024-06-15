@@ -27,7 +27,6 @@ const list = async (query) => {
             },
         },
     });
-    console.log(user);
 
     return { total_data: count, user };
 };
