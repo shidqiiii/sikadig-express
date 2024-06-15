@@ -1,4 +1,5 @@
 import cookieParser from "cookie-parser";
+import "dotenv/config";
 import express, { json, static as static_, urlencoded } from "express";
 import createError from "http-errors";
 import logger from "morgan";
@@ -9,9 +10,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 import indexRouter from "./routes/index.js";
-import roleRouter from "./routes/role.route.js";
-import menuTypeRouter from "./routes/menutype.route.js";
 import menuRouter from "./routes/menu.route.js";
+import menuTypeRouter from "./routes/menutype.route.js";
+import roleRouter from "./routes/role.route.js";
+import userRouter from "./routes/user.route.js";
 
 const app = express();
 
@@ -29,6 +31,7 @@ app.use("/", indexRouter);
 app.use("/role", roleRouter);
 app.use("/menu-type", menuTypeRouter);
 app.use("/menu", menuRouter);
+app.use("/user", userRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
