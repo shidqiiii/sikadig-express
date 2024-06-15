@@ -111,7 +111,6 @@ const create = async (payload) => {
 const update = async (params, payload) => {
     const menu = validate(upsertMenuSchema, payload);
     const findMenu = await read(params);
-    console.log(findMenu);
 
     return await prismaClient.menu.update({
         where: {
