@@ -41,7 +41,7 @@ model Role {
 }
 
 model UserStatus {
-  user_status_id Int      @id @default(autoincrement())
+  user_status_id Int      @id
   name           String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
@@ -61,7 +61,7 @@ model MenuType {
 }
 
 model MenuStatus {
-  menu_status_id Int      @id @default(autoincrement())
+  menu_status_id Int      @id
   name           String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt

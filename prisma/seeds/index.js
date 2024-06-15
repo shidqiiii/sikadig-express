@@ -8,7 +8,10 @@ const main = async () => {
         });
 
         await prismaClient.userStatus.createMany({
-            data: [{ name: "Active" }, { name: "Inactive" }],
+            data: [
+                { user_status_id: 1, name: "Active" },
+                { user_status_id: 0, name: "Inactive" },
+            ],
         });
 
         await prismaClient.menuType.createMany({
@@ -16,7 +19,10 @@ const main = async () => {
         });
 
         await prismaClient.menuStatus.createMany({
-            data: [{ name: "Ready" }, { name: "Empty" }],
+            data: [
+                { menu_status_id: 1, name: "Ready" },
+                { menu_status_id: 0, name: "Empty" },
+            ],
         });
 
         const role = await prismaClient.role.findMany({
